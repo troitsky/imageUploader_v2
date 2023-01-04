@@ -10,7 +10,7 @@ main().catch(err => console.log(err));
 app.use(cors())
 
 async function main() {
-  await mongoose.connect('mongodb://127.0.0.1:27017/imageUploaderDB');
+  await mongoose.connect('mongodb+srv://troitsky:d8QQTCVuTFC2Bt9@cluster0.d8cld.mongodb.net/?retryWrites=true&w=majority');
 }
 
 app.use('/', uploadRouter)

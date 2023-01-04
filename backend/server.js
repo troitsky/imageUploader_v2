@@ -10,7 +10,7 @@ main().catch(err => console.log(err));
 app.use(cors())
 
 async function main() {
-  await mongoose.connect('mongodb+srv://troitsky:d8QQTCVuTFC2Bt9@cluster0.d8cld.mongodb.net/image_uploader/?retryWrites=true&w=majority ');
+  await mongoose.connect('mongodb+srv://troitsky:d8QQTCVuTFC2Bt9@cluster0.d8cld.mongodb.net/image_uploader?retryWrites=true&w=majority ');
 }
 
 app.use('/', uploadRouter)

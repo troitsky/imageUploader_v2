@@ -1,68 +1,9 @@
 import './App.css'
 import { useState } from 'react';
 import axiosInstance from './utils/axios';
-
-
-function UploadCard({dragActive, handleDrag, handleDrop, handleChange}) {
-  
-  return (
-    
-    <form className="upload_card" 
-      onDragEnter={e => handleDrag(e)} 
-      onDragLeave={e => handleDrag(e)} 
-      onDragOver={e => handleDrag(e)}
-      onDrop = {e => handleDrop(e)}
-      onSubmit = {e => e.preventDefault()}
-    >
-      <h2 className='card_title'>Upload your image</h2>
-      <p className="instruction_text">File should be Jpeg, Png,...</p>
-        <input type="file" name="image" onChange={handleChange} id="image_upload_area" />
-        <label id="image_upload_area_label" htmlFor="image_upload_area" className={dragActive ? 'drag_active' : ''}>
-          <img className='droparea_instructions_img' src="./image.svg" alt="" />
-          <p className='droparea_instructions_text'>Drag & Drop your image here</p>
-        </label>
-        <p className='upload_card_additonal_text'>Or</p>
-        <label htmlFor="image_upload_area" className='upload_card_btn'>Choose a file</label>
-    </form>
-  )
-}
-
-function UploadSuccessCard({uploadedImagePath}) {
-  const [infoMessage, setInfoMessage] = useState('');
-  
-  const copyText = () => {
-    console.log('copied text')
-    navigator.clipboard.writeText(uploadedImagePath)
-    setInfoMessage("Copied link to clipboard")
-  }
-
-  return (
-    <form className="upload_card" onSubmit={e => e.preventDefault()}>
-      <h2 className='card_title'>Uploaded Successfully!</h2>
-      <img src={uploadedImagePath} className="image_uploaded_area"/>
-      <div className="copy_link_block">
-        <span className="link_text">{uploadedImagePath}</span>
-        <button className="copy_link_btn" onClick={copyText}>Copy Link</button>
-      </div>
-      <p className="info_text">{infoMessage}</p>
-    </form>
-  )
-}
-
-
-function Uploading({uploadProgress}) {
-
-  return (
-    <div className="overlay">
-      <div className="upload_card">
-        <p className="uploading_text">Uploading...</p>
-        <div className="progress_bar">
-          <div style={{width: `${uploadProgress}%`}} className="uploaded_bar"></div>
-        </div>
-      </div>
-    </div>
-  )
-}
+import UploadCard from './components/UploadCard';
+import UploadSuccessCard from './components/UploadSuccessCard';
+import Uploading from './components/Uploading';
 
 function App() {
   const [uploaded, setUploaded] = useState(false) 
@@ -72,7 +13,6 @@ function App() {
   const [uploadProgress, setProgress] = useState(null)
 
   function handleDrag(e) {
-    console.log('drag function fired')
     e.preventDefault();
     e.stopPropagation();
   
@@ -86,7 +26,6 @@ function App() {
   }
 
   function handleSubmit(data) {
-    
     const formData = new FormData();
     formData.append('image', data);
 
@@ -114,7 +53,6 @@ function App() {
 
   }
   
-
   function handleDrop(e) {
     e.preventDefault();
     e.stopPropagation();
@@ -133,9 +71,8 @@ function App() {
       const data = e.target.files[0]
       handleSubmit(data)
     }
-
   }
-   
+  
   return (
     <div className="App">
       {uploading && <Uploading uploadProgress={uploadProgress} />}

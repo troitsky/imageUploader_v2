@@ -7,7 +7,7 @@ uploadRouter.get('/', (req, res) => {
     res.send('Hello World!')
   })
   
-uploadRouter.post('/uploadImage', upload.single('image'), saveImageToDB)
+uploadRouter.post('/uploadImage', upload.single('image'), saveImageToDB,)
   
 uploadRouter.get('/images/', getAllImages)
 

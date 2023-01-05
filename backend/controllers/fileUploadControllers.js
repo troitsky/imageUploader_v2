@@ -1,3 +1,5 @@
+const path = require('path')
+
 const {Image} = require('../Models/image');
 
 const saveImageToDB = async (req, res, next) => {
@@ -6,7 +8,7 @@ const saveImageToDB = async (req, res, next) => {
     console.log(req.file)
     const saveImage = new Image({
         name: req.file.originalname,
-        url: 'http://localhost:3000/uploads/' + req.file.filename
+        url: path.join(req.headers.host, req.file.path)
     })
     
     saveImage.save()
